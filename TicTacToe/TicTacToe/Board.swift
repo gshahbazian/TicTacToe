@@ -11,8 +11,8 @@ import Foundation
 let boardWidth = 3
 
 enum Piece {
-    case XPiece
-    case OPiece
+    case xPiece
+    case oPiece
 }
 
 struct Space: Equatable {
@@ -32,18 +32,18 @@ func ==(lhs: Space, rhs: Space) -> Bool {
 }
 
 enum DiagnalDirection {
-    case TopLeft
-    case TopRight
+    case topLeft
+    case topRight
 }
 
 struct Board: CustomDebugStringConvertible {
-    private(set) var board: [[Space]]
+    fileprivate(set) var board: [[Space]]
     var numberOfMovesMade = 0
 
-    private(set) var winningPiece: Piece?
-    private(set) var winningRow: Int?
-    private(set) var winningColumn: Int?
-    private(set) var winningDiagnal: DiagnalDirection?
+    fileprivate(set) var winningPiece: Piece?
+    fileprivate(set) var winningRow: Int?
+    fileprivate(set) var winningColumn: Int?
+    fileprivate(set) var winningDiagnal: DiagnalDirection?
     
     init() {
         var emptyBoard = [[Space]]()
@@ -58,7 +58,7 @@ struct Board: CustomDebugStringConvertible {
         board = emptyBoard
     }
     
-    mutating func putPieceAtSpace(piece: Piece, column: Int, row: Int) -> Bool {
+    mutating func putPieceAtSpace(_ piece: Piece, column: Int, row: Int) -> Bool {
         guard row < board.count else {
             return false
         }
@@ -74,7 +74,7 @@ struct Board: CustomDebugStringConvertible {
         }
         
         board[row][column] = Space(piece: piece)
-        numberOfMovesMade++
+        numberOfMovesMade += 1
         
         if numberOfMovesMade >= (2 * boardWidth) - 1 {
             var rowWins = true
@@ -102,7 +102,7 @@ struct Board: CustomDebugStringConvertible {
                     topLeftDiagnalWins = topLeftDiagnalWins && (board[index][index] == board[index + 1][index + 1])
                 }
                 if topLeftDiagnalWins {
-                    winningDiagnal = .TopLeft
+                    winningDiagnal = .topLeft
                     winningPiece = piece
                 }
             }
@@ -113,7 +113,7 @@ struct Board: CustomDebugStringConvertible {
                     topRightDiagnalWins = topRightDiagnalWins && (board[boardWidth - 1 - index][index] == board[boardWidth - 2 - index][index + 1])
                 }
                 if topRightDiagnalWins {
-                    winningDiagnal = .TopRight
+                    winningDiagnal = .topRight
                     winningPiece = piece
                 }
             }
@@ -145,7 +145,7 @@ struct Board: CustomDebugStringConvertible {
                 boardString += "\n"
                 for space in row {
                     if let piece = space.piece {
-                        boardString += (piece == .XPiece) ? " X " : " O "
+                        boardString += (piece == .xPiece) ? " X " : " O "
                     } else {
                         boardString += " _ "
                     }

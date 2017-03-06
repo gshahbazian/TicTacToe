@@ -11,7 +11,7 @@ import UIKit
 let boardSquareSize = CGFloat(66.0)
 
 protocol BoardDelegate {
-    func boardView(boardView: BoardView, selectedSquareAtColumn column: Int, row: Int)
+    func boardView(_ boardView: BoardView, selectedSquareAtColumn column: Int, row: Int)
 }
 
 class BoardView: UIView {
@@ -31,42 +31,42 @@ class BoardView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func intrinsicContentSize() -> CGSize {
+    override var intrinsicContentSize : CGSize {
         let dimension = boardSquareSize * CGFloat(board.board.count)
-        return CGSizeMake(dimension, dimension)
+        return CGSize(width: dimension, height: dimension)
     }
     
-    private func drawSquares() {
+    fileprivate func drawSquares() {
         for rowIndex in 0..<board.board.count {
             for columnIndex in 0..<board.board[rowIndex].count {
                 let space = board.board[rowIndex][columnIndex]
 
                 var cellTitle = "_"
                 switch space.piece {
-                case .Some(.XPiece):
+                case .some(.xPiece):
                     cellTitle = "X"
-                case .Some(.OPiece):
+                case .some(.oPiece):
                     cellTitle = "O"
                 default: break
                 }
                 
-                let cellButton = BoardCellButton(type: .Custom)
+                let cellButton = BoardCellButton(type: .custom)
                 cellButton.translatesAutoresizingMaskIntoConstraints = false
-                cellButton.setTitle(cellTitle, forState: .Normal)
-                cellButton.addTarget(self, action: "cellButtonPressed:", forControlEvents: .TouchUpInside)
+                cellButton.setTitle(cellTitle, for: .normal)
+                cellButton.addTarget(self, action: #selector(BoardView.cellButtonPressed(_:)), for: .touchUpInside)
                 cellButton.column = columnIndex
                 cellButton.row = rowIndex
                 addSubview(cellButton)
                 
-                cellButton.heightAnchor.constraintEqualToConstant(boardSquareSize).active = true
-                cellButton.widthAnchor.constraintEqualToConstant(boardSquareSize).active = true
-                cellButton.leftAnchor.constraintEqualToAnchor(leftAnchor, constant: (boardSquareSize * CGFloat(columnIndex))).active = true
-                cellButton.topAnchor.constraintEqualToAnchor(topAnchor, constant: (boardSquareSize * CGFloat(rowIndex))).active = true
+                cellButton.heightAnchor.constraint(equalToConstant: boardSquareSize).isActive = true
+                cellButton.widthAnchor.constraint(equalToConstant: boardSquareSize).isActive = true
+                cellButton.leftAnchor.constraint(equalTo: leftAnchor, constant: (boardSquareSize * CGFloat(columnIndex))).isActive = true
+                cellButton.topAnchor.constraint(equalTo: topAnchor, constant: (boardSquareSize * CGFloat(rowIndex))).isActive = true
             }
         }
     }
     
-    func cellButtonPressed(button: BoardCellButton) {
+    func cellButtonPressed(_ button: BoardCellButton) {
         guard let column = button.column, let row = button.row else {
             return
         }

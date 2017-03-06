@@ -10,32 +10,32 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    private var game = StateMachine<GameState>(initialState: .NewGame)
-    private var currentBoard = Board() {
+    fileprivate var game = StateMachine<GameState>(initialState: .newGame)
+    fileprivate var currentBoard = Board() {
         didSet {
             drawCurrentBoard()
         }
     }
     
     /// You can change these two types to any Player type to play different opponents
-    var xPlayer = HumanPlayer(pieceType: .XPiece)
-    var oPlayer = UnbeatableComputerPlayer(pieceType: .OPiece)
+    var xPlayer = HumanPlayer(pieceType: .xPiece)
+    var oPlayer = UnbeatableComputerPlayer(pieceType: .oPiece)
     
-    private var boardView: BoardView?
-    private lazy var winnerLabel: UILabel = {
+    fileprivate var boardView: BoardView?
+    fileprivate lazy var winnerLabel: UILabel = {
         let label = UILabel()
-        label.hidden = true
-        label.font = UIFont.systemFontOfSize(24.0)
+        label.isHidden = true
+        label.font = UIFont.systemFont(ofSize: 24.0)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    private lazy var newGameButton: UIButton = {
+    fileprivate lazy var newGameButton: UIButton = {
         let button = UIButton()
-        button.setTitle(NSLocalizedString("New Game", comment: ""), forState: .Normal)
-        button.setTitleColor(UIColor.blueColor(), forState: .Normal)
-        button.titleLabel?.font = UIFont.systemFontOfSize(14.0)
-        button.hidden = true
-        button.addTarget(self, action: "newGamePressed", forControlEvents: .TouchUpInside)
+        button.setTitle(NSLocalizedString("New Game", comment: ""), for: UIControlState())
+        button.setTitleColor(UIColor.blue, for: UIControlState())
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 14.0)
+        button.isHidden = true
+        button.addTarget(self, action: #selector(ViewController.newGamePressed), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -44,61 +44,61 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         view.addSubview(winnerLabel)
-        winnerLabel.centerXAnchor.constraintEqualToAnchor(view.centerXAnchor).active = true
-        winnerLabel.topAnchor.constraintEqualToAnchor(view.topAnchor, constant: 30.0).active = true
+        winnerLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        winnerLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 30.0).isActive = true
         
         view.addSubview(newGameButton)
-        newGameButton.centerXAnchor.constraintEqualToAnchor(view.centerXAnchor).active = true
-        newGameButton.topAnchor.constraintEqualToAnchor(winnerLabel.bottomAnchor, constant: 10.0).active = true
+        newGameButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        newGameButton.topAnchor.constraint(equalTo: winnerLabel.bottomAnchor, constant: 10.0).isActive = true
         
         game.transitionObservation = {[unowned self] (from: GameState, to: GameState) -> () in
             switch (from, to) {
-            case (_, .NewGame):
+            case (_, .newGame):
                 self.currentBoard = Board()
-                self.winnerLabel.hidden = true
-                self.newGameButton.hidden = true
-                self.game.state = .XPlayersTurn
-            case (.NewGame, .XPlayersTurn):
+                self.winnerLabel.isHidden = true
+                self.newGameButton.isHidden = true
+                self.game.state = .xPlayersTurn
+            case (.newGame, .xPlayersTurn):
                 self.currentBoard = Board()
                 fallthrough
-            case (_, .XPlayersTurn):
+            case (_, .xPlayersTurn):
                 if self.xPlayer.canMakeOwnMove {
                     let move = self.xPlayer.makeMoveOnBoard(self.currentBoard, column: nil, row: nil)
                     if move.0 {
-                        self.playerMadeMove(move.1, nextState: .OPlayersTurn)
+                        self.playerMadeMove(move.1, nextState: .oPlayersTurn)
                     }
                 }
-            case (_, .OPlayersTurn):
+            case (_, .oPlayersTurn):
                 if self.oPlayer.canMakeOwnMove {
                     let move = self.oPlayer.makeMoveOnBoard(self.currentBoard, column: nil, row: nil)
                     if move.0 {
-                        self.playerMadeMove(move.1, nextState: .XPlayersTurn)
+                        self.playerMadeMove(move.1, nextState: .xPlayersTurn)
                     }
                 }
-            case (_, .GameOver):
+            case (_, .gameOver):
                 switch self.currentBoard.winningPiece {
-                case .Some(.XPiece):
+                case .some(.xPiece):
                     self.winnerLabel.text = NSLocalizedString("X Wins!", comment: "")
-                case .Some(.OPiece):
+                case .some(.oPiece):
                     self.winnerLabel.text = NSLocalizedString("O Wins!", comment: "")
-                case .None:
+                case .none:
                     self.winnerLabel.text = NSLocalizedString("Cats Game", comment: "")
                 }
                 
-                self.winnerLabel.hidden = false
-                self.newGameButton.hidden = false
+                self.winnerLabel.isHidden = false
+                self.newGameButton.isHidden = false
             }
         }
         
-        game.state = .XPlayersTurn
+        game.state = .xPlayersTurn
     }
     
-    func playerMadeMove(nextBoard: Board, nextState: GameState) {
+    func playerMadeMove(_ nextBoard: Board, nextState: GameState) {
         currentBoard = nextBoard
         
         let winningPiece = currentBoard.gameIsOver()
         if winningPiece.0 {
-            game.state = .GameOver
+            game.state = .gameOver
         } else {
             game.state = nextState
         }
@@ -115,32 +115,32 @@ class ViewController: UIViewController {
         
         let nextBoardView = BoardView(board: currentBoard, delegate: self)
         nextBoardView.translatesAutoresizingMaskIntoConstraints = false
-        nextBoardView.backgroundColor = UIColor.grayColor()
+        nextBoardView.backgroundColor = UIColor.gray
         view.addSubview(nextBoardView)
         
-        nextBoardView.centerXAnchor.constraintEqualToAnchor(view.centerXAnchor).active = true
-        nextBoardView.centerYAnchor.constraintEqualToAnchor(view.centerYAnchor).active = true
+        nextBoardView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        nextBoardView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
         boardView = nextBoardView
     }
     
     func newGamePressed() {
-        game.state = .NewGame
+        game.state = .newGame
     }
 }
 
 extension ViewController: BoardDelegate {
-    func boardView(boardView: BoardView, selectedSquareAtColumn column: Int, row: Int) {
+    func boardView(_ boardView: BoardView, selectedSquareAtColumn column: Int, row: Int) {
         var playersTurn: Player?
-        var nextState = GameState.GameOver
+        var nextState = GameState.gameOver
         
         switch game.state {
-        case .XPlayersTurn:
+        case .xPlayersTurn:
             playersTurn = xPlayer
-            nextState = .OPlayersTurn
-        case .OPlayersTurn:
+            nextState = .oPlayersTurn
+        case .oPlayersTurn:
             playersTurn = oPlayer
-            nextState = .XPlayersTurn
+            nextState = .xPlayersTurn
         default: break
         }
         

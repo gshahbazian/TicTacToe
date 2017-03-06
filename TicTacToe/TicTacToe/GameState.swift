@@ -9,21 +9,21 @@
 import Foundation
 
 enum GameState: State {
-    case NewGame
-    case XPlayersTurn
-    case OPlayersTurn
-    case GameOver
+    case newGame
+    case xPlayersTurn
+    case oPlayersTurn
+    case gameOver
     
-    func shouldTransition(toState: GameState) -> Bool {
+    func shouldTransition(_ toState: GameState) -> Bool {
         switch self {
-        case .NewGame:
-            return toState == .XPlayersTurn
-        case .XPlayersTurn:
-            return toState == .OPlayersTurn || toState == .GameOver
-        case .OPlayersTurn:
-            return toState == .XPlayersTurn || toState == .GameOver
-        case .GameOver:
-            return toState == .NewGame
+        case .newGame:
+            return toState == .xPlayersTurn
+        case .xPlayersTurn:
+            return toState == .oPlayersTurn || toState == .gameOver
+        case .oPlayersTurn:
+            return toState == .xPlayersTurn || toState == .gameOver
+        case .gameOver:
+            return toState == .newGame
         }
     }
 }

@@ -13,7 +13,7 @@ protocol Player {
     var pieceType: Piece { get }
     
     var canMakeOwnMove: Bool { get }
-    func makeMoveOnBoard(board: Board, column: Int?, row: Int?) -> (Bool, Board)
+    func makeMoveOnBoard(_ board: Board, column: Int?, row: Int?) -> (Bool, Board)
 }
 
 struct RandomComputerPlayer: Player {
@@ -24,7 +24,7 @@ struct RandomComputerPlayer: Player {
         self.pieceType = pieceType
     }
     
-    func makeMoveOnBoard(board: Board, column: Int?, row: Int?) -> (Bool, Board) {
+    func makeMoveOnBoard(_ board: Board, column: Int?, row: Int?) -> (Bool, Board) {
         var didMakeMove = false
         var nextBoard = board
         while !didMakeMove {
@@ -44,12 +44,12 @@ struct UnbeatableComputerPlayer: Player {
         self.pieceType = pieceType
     }
     
-    func makeMoveOnBoard(board: Board, column: Int?, row: Int?) -> (Bool, Board) {
+    func makeMoveOnBoard(_ board: Board, column: Int?, row: Int?) -> (Bool, Board) {
         return (true, minmax(board, currentPlayersPiece: pieceType).1)
     }
     
     /// Minmax algorithm described here http://neverstopbuilding.com/minimax
-    func minmax(board: Board, currentPlayersPiece: Piece) -> (Int, Board) {
+    func minmax(_ board: Board, currentPlayersPiece: Piece) -> (Int, Board) {
         if board.gameIsOver().0 {
             return (score(board), board)
         }
@@ -67,24 +67,24 @@ struct UnbeatableComputerPlayer: Player {
         }
         
         for possibleBoard in possibleBoards {
-            let nextPiece = currentPlayersPiece == .XPiece ? Piece.OPiece : Piece.XPiece
+            let nextPiece = currentPlayersPiece == .xPiece ? Piece.oPiece : Piece.xPiece
             scores.append(minmax(possibleBoard, currentPlayersPiece: nextPiece).0)
         }
         
         if currentPlayersPiece == pieceType {
-            let (position, max) = scores.enumerate().reduce((-1, Int.min), combine: {
+            let (position, max) = scores.enumerated().reduce((-1, Int.min), {
                 $0.1 > $1.1 ? $0 : $1
             })
             return (max, possibleBoards[position])
         } else {
-            let (position, min) = scores.enumerate().reduce((-1, Int.max), combine: {
+            let (position, min) = scores.enumerated().reduce((-1, Int.max), {
                 $0.1 < $1.1 ? $0 : $1
             })
             return (min, possibleBoards[position])
         }
     }
     
-    func score(board: Board) -> Int {
+    func score(_ board: Board) -> Int {
         if let winningPiece = board.winningPiece {
             return winningPiece == pieceType ? 10 : -10
         }
@@ -101,7 +101,7 @@ struct HumanPlayer: Player {
         self.pieceType = pieceType
     }
     
-    func makeMoveOnBoard(board: Board, column: Int?, row: Int?) -> (Bool, Board) {
+    func makeMoveOnBoard(_ board: Board, column: Int?, row: Int?) -> (Bool, Board) {
         guard let unwrappedColumn = column, let unwrappedRow = row else {
             return (false, board)
         }

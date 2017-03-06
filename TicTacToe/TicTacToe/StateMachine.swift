@@ -9,14 +9,14 @@
 import Foundation
 
 protocol State {
-    func shouldTransition(toState: Self) -> Bool
+    func shouldTransition(_ toState: Self) -> Bool
 }
 
 /// Swift fsm altered from https://gist.github.com/jemmons/f30f1de292751da0f1b7
 class StateMachine<T: State> {
-    typealias TransitionObservation = ((from: T, to: T) -> ())
+    typealias TransitionObservation = ((_ from: T, _ to: T) -> ())
     
-    private var _state: T
+    fileprivate var _state: T
     var state: T {
         get {
             return _state
@@ -28,7 +28,7 @@ class StateMachine<T: State> {
             
             let oldValue = _state
             _state = newValue
-            transitionObservation?(from: oldValue, to: newValue)
+            transitionObservation?(oldValue, newValue)
         }
     }
     
