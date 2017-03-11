@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6C87EBB71E6DDF890076077D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C87EBB61E6DDF890076077D /* MainViewController.swift */; };
+		6C87EBB91E6DE4540076077D /* PickPlayersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C87EBB81E6DE4540076077D /* PickPlayersViewController.swift */; };
 		6CEDB2931C31C97800D7D01A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEDB2921C31C97800D7D01A /* AppDelegate.swift */; };
-		6CEDB2951C31C97800D7D01A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEDB2941C31C97800D7D01A /* ViewController.swift */; };
-		6CEDB2981C31C97800D7D01A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6CEDB2961C31C97800D7D01A /* Main.storyboard */; };
+		6CEDB2951C31C97800D7D01A /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEDB2941C31C97800D7D01A /* GameViewController.swift */; };
 		6CEDB29A1C31C97800D7D01A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CEDB2991C31C97800D7D01A /* Assets.xcassets */; };
 		6CEDB29D1C31C97800D7D01A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6CEDB29B1C31C97800D7D01A /* LaunchScreen.storyboard */; };
 		6CEDB2A51C31CC6A00D7D01A /* StateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEDB2A41C31CC6A00D7D01A /* StateMachine.swift */; };
@@ -20,10 +21,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6C87EBB61E6DDF890076077D /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		6C87EBB81E6DE4540076077D /* PickPlayersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickPlayersViewController.swift; sourceTree = "<group>"; };
 		6CEDB28F1C31C97800D7D01A /* TicTacToe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TicTacToe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CEDB2921C31C97800D7D01A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		6CEDB2941C31C97800D7D01A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		6CEDB2971C31C97800D7D01A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		6CEDB2941C31C97800D7D01A /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		6CEDB2991C31C97800D7D01A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6CEDB29C1C31C97800D7D01A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6CEDB29E1C31C97800D7D01A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -65,16 +67,17 @@
 			isa = PBXGroup;
 			children = (
 				6CEDB2921C31C97800D7D01A /* AppDelegate.swift */,
-				6CEDB2941C31C97800D7D01A /* ViewController.swift */,
-				6CEDB2961C31C97800D7D01A /* Main.storyboard */,
-				6CEDB2991C31C97800D7D01A /* Assets.xcassets */,
-				6CEDB29B1C31C97800D7D01A /* LaunchScreen.storyboard */,
-				6CEDB29E1C31C97800D7D01A /* Info.plist */,
+				6C87EBB61E6DDF890076077D /* MainViewController.swift */,
+				6C87EBB81E6DE4540076077D /* PickPlayersViewController.swift */,
+				6CEDB2941C31C97800D7D01A /* GameViewController.swift */,
 				6CEDB2A41C31CC6A00D7D01A /* StateMachine.swift */,
 				6CEDB2A61C31CE8E00D7D01A /* Player.swift */,
 				6CEDB2A81C31CEC400D7D01A /* Board.swift */,
 				6CEDB2AA1C3206DA00D7D01A /* GameState.swift */,
 				6CEDB2AC1C33016F00D7D01A /* BoardView.swift */,
+				6CEDB2991C31C97800D7D01A /* Assets.xcassets */,
+				6CEDB29B1C31C97800D7D01A /* LaunchScreen.storyboard */,
+				6CEDB29E1C31C97800D7D01A /* Info.plist */,
 			);
 			path = TicTacToe;
 			sourceTree = "<group>";
@@ -140,7 +143,6 @@
 			files = (
 				6CEDB29D1C31C97800D7D01A /* LaunchScreen.storyboard in Resources */,
 				6CEDB29A1C31C97800D7D01A /* Assets.xcassets in Resources */,
-				6CEDB2981C31C97800D7D01A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,24 +156,18 @@
 				6CEDB2AD1C33016F00D7D01A /* BoardView.swift in Sources */,
 				6CEDB2A71C31CE8E00D7D01A /* Player.swift in Sources */,
 				6CEDB2AB1C3206DA00D7D01A /* GameState.swift in Sources */,
-				6CEDB2951C31C97800D7D01A /* ViewController.swift in Sources */,
+				6CEDB2951C31C97800D7D01A /* GameViewController.swift in Sources */,
 				6CEDB2A91C31CEC400D7D01A /* Board.swift in Sources */,
+				6C87EBB91E6DE4540076077D /* PickPlayersViewController.swift in Sources */,
 				6CEDB2A51C31CC6A00D7D01A /* StateMachine.swift in Sources */,
 				6CEDB2931C31C97800D7D01A /* AppDelegate.swift in Sources */,
+				6C87EBB71E6DDF890076077D /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		6CEDB2961C31C97800D7D01A /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				6CEDB2971C31C97800D7D01A /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		6CEDB29B1C31C97800D7D01A /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -221,7 +217,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -262,7 +258,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -276,6 +272,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = TicTacToe/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.gabeshahbazian.TicTacToe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -288,6 +285,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = TicTacToe/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.gabeshahbazian.TicTacToe;
 				PRODUCT_NAME = "$(TARGET_NAME)";

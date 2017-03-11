@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  GameViewController.swift
 //  TicTacToe
 //
 //  Created by Gabe Shahbazian on 12/28/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class GameViewController: UIViewController {
 
     fileprivate var game = StateMachine<GameState>(initialState: .newGame)
     fileprivate var currentBoard = Board() {
@@ -18,8 +18,8 @@ class ViewController: UIViewController {
     }
     
     /// You can change these two types to any Player type to play different opponents
-    var xPlayer = HumanPlayer(pieceType: .xPiece)
-    var oPlayer = UnbeatableComputerPlayer(pieceType: .oPiece)
+    var xPlayer: Player
+    var oPlayer: Player
     
     fileprivate var boardView: BoardView?
     fileprivate lazy var winnerLabel: UILabel = {
@@ -35,13 +35,24 @@ class ViewController: UIViewController {
         button.setTitleColor(UIColor.blue, for: UIControlState())
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14.0)
         button.isHidden = true
-        button.addTarget(self, action: #selector(ViewController.newGamePressed), for: .touchUpInside)
+        button.addTarget(self, action: #selector(newGamePressed), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
 
+    init(xPlayer: Player, oPlayer: Player) {
+        self.xPlayer = xPlayer
+        self.oPlayer = oPlayer
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         
         view.addSubview(winnerLabel)
         winnerLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -129,7 +140,7 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: BoardDelegate {
+extension GameViewController: BoardDelegate {
     func boardView(_ boardView: BoardView, selectedSquareAtColumn column: Int, row: Int) {
         var playersTurn: Player?
         var nextState = GameState.gameOver
